@@ -1,0 +1,10 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "backend for todo application",
+  "main": "server.js",
+  "repository": "https://github.com/andela-jkanyua/todoApp",
+  "author": "Jimnah M.",
+  "license": "MIT",
+  "private": false
+}
