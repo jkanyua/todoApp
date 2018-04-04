@@ -16,7 +16,7 @@ module.exports = {
       completed_on: {
         type: Sequelize.DATE
       },
-      duration_to_completion: {
+      date_to_complete: {
         type: Sequelize.DATE
       },
       user_id: {
