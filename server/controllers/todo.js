@@ -26,11 +26,12 @@ module.exports = class Todo {
         user_id: id
       })
 
-      return {
+      const result = {
         title: todo.title,
         complete: todo.completed,
         duration_to_completion: todo.duration_to_completion
       }
+      return reply.response(result).code(201)
     } catch (error) {
       console.log(error)
       throw error
@@ -53,6 +54,24 @@ module.exports = class Todo {
         return Boom.notFound('Todo was not found.')
       }
       return await TodoModel.findOne(options)
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+  static async delete (request, reply) {
+    try {
+      const options = {
+        where: {
+          id: request.params.todoId
+        }
+      }
+
+      const deleted = await TodoModel.destroy(options)
+      if (deleted < 1) {
+        return Boom.notFound('Todo was not found.')
+      }
+      return reply.response().code(204)
     } catch (error) {
       console.log(error)
       throw error
