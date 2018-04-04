@@ -55,5 +55,13 @@ module.exports = [
         }
       }
     }
+  },
+  {
+    method: 'DELETE',
+    path: '/todos/{todoId}',
+    handler: Models.Todo.delete,
+    config: {
+      auth: 'jwt'
+    }
   }
 ]
