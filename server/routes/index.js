@@ -1,6 +1,6 @@
 const Joi = require('joi')
 const Models = require('../controllers')
-console.log(Models.Todo, 'jj')
+
 module.exports = [
   // user routes
   {
