@@ -23,7 +23,6 @@ async function start () {
       ...Routes,
       {
         method: 'GET',
-        config: { auth: 'jwt' },
         path: '/',
         handler: (request, response) => ({status: 'Ok', message: 'Welcome to the toDo Api!'})
       }
