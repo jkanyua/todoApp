@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     completed: DataTypes.BOOLEAN,
     completed_on: DataTypes.DATE,
-    duration_to_completion: DataTypes.DATE
+    date_to_complete: DataTypes.DATE
   }, {})
   Todo.associate = function (models) {
     Todo.belongsTo(models.User, { foreignKey: 'id' })

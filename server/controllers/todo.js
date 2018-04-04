@@ -22,14 +22,14 @@ module.exports = class Todo {
       const todo = await TodoModel.create({
         title: request.payload.title,
         completed: false,
-        duration_to_completion: request.payload.complete_on,
+        date_to_complete: request.payload.complete_on,
         user_id: id
       })
 
       const result = {
         title: todo.title,
         complete: todo.completed,
-        duration_to_completion: todo.duration_to_completion
+        date_to_complete: todo.date_to_complete
       }
       return reply.response(result).code(201)
     } catch (error) {
@@ -41,9 +41,11 @@ module.exports = class Todo {
   static async update (request, reply) {
     try {
       const now = new Date()
+      const {auth: { credentials: { id } }} = request
       const options = {
         where: {
-          id: request.params.todoId
+          id: request.params.todoId,
+          user_id: id
         }
       }
       const [affected] = await TodoModel.update({
@@ -61,9 +63,11 @@ module.exports = class Todo {
   }
   static async delete (request, reply) {
     try {
+      const {auth: { credentials: { id } }} = request
       const options = {
         where: {
-          id: request.params.todoId
+          id: request.params.todoId,
+          user_id: id
         }
       }
 
