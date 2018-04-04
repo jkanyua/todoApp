@@ -41,9 +41,11 @@ module.exports = class Todo {
   static async update (request, reply) {
     try {
       const now = new Date()
+      const {auth: { credentials: { id } }} = request
       const options = {
         where: {
-          id: request.params.todoId
+          id: request.params.todoId,
+          user_id: id
         }
       }
       const [affected] = await TodoModel.update({
@@ -61,9 +63,11 @@ module.exports = class Todo {
   }
   static async delete (request, reply) {
     try {
+      const {auth: { credentials: { id } }} = request
       const options = {
         where: {
-          id: request.params.todoId
+          id: request.params.todoId,
+          user_id: id
         }
       }
 

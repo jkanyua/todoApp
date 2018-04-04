@@ -1,16 +1,36 @@
 const Hapi = require('hapi')
+const Inert = require('inert')
+const Vision = require('vision')
+const HapiSwagger = require('hapi-swagger')
 const Routes = require('./routes')
 const validate = require('./controllers').User.validate
+const Pack = require('./package')
+
+require('dotenv-safe').config()
 
 const server = Hapi.server({
   port: 5000,
   host: 'localhost'
 })
-require('dotenv-safe').config()
 
+const swaggerOptions = {
+  info: {
+    title: 'Todo API Documentation',
+    version: Pack.version
+  }
+}
 async function start () {
   try {
-    await server.register(require('hapi-auth-jwt2'))
+    await server.register([
+      require('hapi-auth-jwt2'),
+      Inert,
+      Vision,
+      {
+        plugin: HapiSwagger,
+        optiojns: swaggerOptions
+      }
+    ])
+
     server.auth.strategy('jwt', 'jwt', {
       key: process.env.SECRET,
       validate,
@@ -20,12 +40,15 @@ async function start () {
 
     // add routes
     server.route([
-      ...Routes,
       {
         method: 'GET',
         path: '/',
-        handler: (request, response) => ({status: 'Ok', message: 'Welcome to the toDo Api!'})
-      }
+        handler: (request, response) => ({status: 'Ok', message: 'Welcome to the toDo Api!'}),
+        config: {
+          auth: false
+        }
+      },
+      ...Routes
     ])
 
     await server.start()
