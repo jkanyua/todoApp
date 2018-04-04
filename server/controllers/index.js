@@ -1,5 +1,7 @@
 const User = require('./user')
+const Todo = require('./todo')
 
 module.exports = {
-  User
+  User,
+  Todo
 }
