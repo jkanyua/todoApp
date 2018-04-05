@@ -8,7 +8,6 @@ module.exports = class Todo {
       const todos = await TodoModel.findAll({
         where: { user_id: id }
       })
-      if (todos.length === 0) return Boom.notFound('No Todo Items found.')
       return todos
     } catch (e) {
       console.log(e)

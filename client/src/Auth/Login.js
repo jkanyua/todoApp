@@ -13,12 +13,13 @@ class Login extends Component {
 constructor(props){
   super(props);
   this.state = {
-  email:'',
-  password:'',
+    email:'',
+    password:'',
   }
   this.handleClick = this.handleClick.bind(this)
   this.handleRequestClose = this.handleRequestClose.bind(this)
  }
+ 
  static getDerivedStateFromProps(nextProps, prevState){
    if(nextProps.error){
      return Object.assign({}, prevState, {error: nextProps.error })
@@ -54,7 +55,7 @@ render() {
     return (
       <div style={divStyle}>
         <Card>
-        <h2>Login</h2>
+          <h2>Login</h2>
           <div>
             <TextField
               hintText="Enter your Email"
@@ -72,14 +73,14 @@ render() {
             <RaisedButton label="Submit" primary={true} style={{margin: 15}} onClick={(event) => this.handleClick(event)}/>
             <br/><br />
             Don't have an account? <Link to="/register" >Sign Up</Link> here!<br /><br />
-          </div>
-          </Card>
-          <Snackbar
-          open={this.state.error ? true : false}
-          message={`Login Error: ${this.state.error}`}
-          autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
-        />
+            </div>
+            </Card>
+            <Snackbar
+              open={this.state.error ? true : false}
+              message={`Login Error: ${this.state.error}`}
+              autoHideDuration={4000}
+              onRequestClose={this.handleRequestClose}
+            />
       </div>
     );
   }
