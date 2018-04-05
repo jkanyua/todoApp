@@ -6,6 +6,7 @@ import {
   Link
 } from 'react-router-dom'
 import Login from './Auth/Login'
+import Register from './Auth/Register'
 import './App.css';
 
 class App extends Component {
@@ -24,7 +25,8 @@ class App extends Component {
               }
             </h2>
             <hr/>
-            <Route path="/login" component={Login}/>
+            <Route path="/login" component={Login} />
+            <Route path='/register' component={Register} />
           </div>
         </Router>
       </div>

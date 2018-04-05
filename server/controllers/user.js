@@ -29,7 +29,7 @@ module.exports = class User {
       }
     } catch (e) {
       console.log(e)
-      throw e
+      return Boom.badRequest(e.message)
     }
   }
   static async create (request, reply) {
@@ -48,7 +48,7 @@ module.exports = class User {
       }
     } catch (e) {
       console.log(e)
-      throw e
+      return Boom.badRequest(e.message)
     }
   }
   static async validate (decoded, request) {

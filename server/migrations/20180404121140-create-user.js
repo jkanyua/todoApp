@@ -8,10 +8,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          isEmail: true,
+          allowNull: false
+        },
+        unique: true
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: {
+            args: 6,
+            msg: 'password must have six or more characters'
+          }
+        }
       },
       createdAt: {
         allowNull: false,

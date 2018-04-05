@@ -8,7 +8,11 @@ import * as localStorage from '../utils'
 export const types = {
   LOGIN_REQUEST: 'LOGIN_REQUEST',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-  LOGIN_FAILURE: 'LOGIN_FAILURE'
+  LOGIN_FAILURE: 'LOGIN_FAILURE',
+
+  REGISTER_USER_REQUEST: 'REGISTER_USER_REQUEST',
+  REGISTER_USER_SUCCESS: 'REGISTER_USER_SUCCESS',
+  REGISTER_USER_FAILURE: 'REGISTER_USER_FAILURE'
 }
 
 /*
@@ -56,6 +60,47 @@ export function login(creds) {
   };
 }
 
+
+// Register User
+
+function registerRequest(requestedAt) {
+  return {
+    type: types.REGISTER_USER_REQUEST,
+    requestedAt
+  }
+}
+
+function registerSuccess() {
+  return {
+    type: types.REGISTER_USER_SUCCESS,
+    registered: true
+  }
+}
+
+function registerFailure(err) {
+  return {
+    type: types.REGISTER_USER_FAILURE,
+    registered: false,
+    error: err.message
+  }
+}
+
+export function register(newUser) {
+  return (dispatch) => {
+    const requestedAt = Date.now()
+    dispatch(registerRequest(requestedAt));
+    return (
+      request
+        .post(`${config.base_url}user`)
+        .send(newUser)
+        .then((response) => {
+          dispatch(registerSuccess());
+        }).catch((err) => {
+          dispatch(registerFailure(err));
+        })
+    );
+  };
+}
 /*
  * ----------------- Reducers -------------------
  */
@@ -63,7 +108,8 @@ export function login(creds) {
  const initialState = {
    isLoggedIn: false,
    requestedAt: null,
-   error: null
+   error: null,
+   registered: false
  }
 
  export default function authReducer(state=initialState, action) {
@@ -83,7 +129,21 @@ export function login(creds) {
         error: action.error,
         isLoggedIn: action.isLoggedIn,
       })
+      case types.REGISTER_USER_REQUEST:
+      return Object.assign({}, state, {
+        requestedAt: action.requestedAt
+       })
+      case types.REGISTER_USER_SUCCESS:
+       return Object.assign({}, state, {
+         registered: action.registered,
+         error: null
+       })
+      case types.REGISTER_USER_FAILURE:
+       return Object.assign({}, state, {
+         error: action.error,
+         registered: action.registered,
+       })
       default:
-      return state
+       return state
    }
  }
