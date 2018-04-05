@@ -42,7 +42,7 @@ handleClick(event){
 handleRequestClose() {
   this.setState({
     error: false,
-  }, () => console.log(this.state));
+  });
 };
 
 render() {
