@@ -101,6 +101,7 @@ export function register(newUser) {
     );
   };
 }
+
 /*
  * ----------------- Reducers -------------------
  */
@@ -147,3 +148,4 @@ export function register(newUser) {
        return state
    }
  }
+ 

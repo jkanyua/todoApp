@@ -7,14 +7,16 @@ import {
 } from 'react-router-dom'
 import Login from './Auth/Login'
 import Register from './Auth/Register'
+import Todos from './Todo/Todos'
 import './App.css';
+
 
 class App extends Component {
   render() {
     return (
       <div>
         <div className="App">
-          <AppBar />
+        <AppBar />
         </div>
         <Router>
           <div>
@@ -25,6 +27,7 @@ class App extends Component {
               }
             </h2>
             <hr/>
+            <Route exact path='/' component={Todos} />
             <Route path="/login" component={Login} />
             <Route path='/register' component={Register} />
           </div>
