@@ -10,9 +10,9 @@ module.exports = class Todo {
       })
       if (todos.length === 0) return Boom.notFound('No Todo Items found.')
       return todos
-    } catch (error) {
-      console.log(error)
-      throw error
+    } catch (e) {
+      console.log(e)
+      return Boom.badRequest(e.message)
     }
   }
 
@@ -32,9 +32,9 @@ module.exports = class Todo {
         date_to_complete: todo.date_to_complete
       }
       return reply.response(result).code(201)
-    } catch (error) {
-      console.log(error)
-      throw error
+    } catch (e) {
+      console.log(e)
+      return Boom.badRequest(e.message)
     }
   }
 
@@ -58,7 +58,7 @@ module.exports = class Todo {
       return await TodoModel.findOne(options)
     } catch (error) {
       console.log(error)
-      throw error
+      return Boom.badRequest(error.message)
     }
   }
   static async delete (request, reply) {
@@ -78,7 +78,7 @@ module.exports = class Todo {
       return reply.response().code(204)
     } catch (error) {
       console.log(error)
-      throw error
+      return Boom.badRequest(error.message)
     }
   }
 }
