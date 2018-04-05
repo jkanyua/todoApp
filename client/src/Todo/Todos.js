@@ -73,7 +73,7 @@ render() {
     <div style={divStyle}>
       <main id="todolist">
         <h1> Todo List
-          <span> Get things done, one item at a time. | <Link to ='/login' onClick={()=>deleteToken()}>LogOut</Link> </span>
+          <span> Get things done, one item at a time. | <Link to ='/login?loggedout=true' onClick={()=>deleteToken()}>LogOut</Link> </span>
         </h1>
         <hr /><br /><br />
         {this.renderTodos()}

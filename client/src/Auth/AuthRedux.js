@@ -36,7 +36,7 @@ function loginSuccess(token){
 function loginFailure(err){
   return {
     type: types.LOGIN_FAILURE,
-    error: err.message,
+    error: err.body.message,
     isLoggedIn: false
   }
 }
@@ -54,7 +54,7 @@ export function login(creds) {
           localStorage.setToken(response.body.token);
           dispatch(loginSuccess(response.body));
         }).catch((err) => {
-          dispatch(loginFailure(err));
+          dispatch(loginFailure(err.response));
         })
     );
   };
@@ -81,7 +81,7 @@ function registerFailure(err) {
   return {
     type: types.REGISTER_USER_FAILURE,
     registered: false,
-    error: err.message
+    error: err.body.message
   }
 }
 
@@ -96,7 +96,7 @@ export function register(newUser) {
         .then((response) => {
           dispatch(registerSuccess());
         }).catch((err) => {
-          dispatch(registerFailure(err));
+          dispatch(registerFailure(err.response));
         })
     );
   };

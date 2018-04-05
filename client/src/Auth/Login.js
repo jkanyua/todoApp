@@ -19,7 +19,9 @@ constructor(props){
   this.handleClick = this.handleClick.bind(this)
   this.handleRequestClose = this.handleRequestClose.bind(this)
  }
- 
+ componentDidMount(){
+   this.props.location.search && this.setState({hasLoggedOut: true})
+ }
  static getDerivedStateFromProps(nextProps, prevState){
    if(nextProps.error){
      return Object.assign({}, prevState, {error: nextProps.error })
@@ -28,6 +30,10 @@ constructor(props){
  }
 
 handleClick(event){
+  if(!this.state.email || !this.state.password) {
+    this.setState({error: 'Email and Password should not be empty'})
+    return
+  }
   this.props.login(
     {
       email: this.state.email,
@@ -43,6 +49,7 @@ handleClick(event){
 handleRequestClose() {
   this.setState({
     error: false,
+    hasLoggedOut: false
   });
 };
 
@@ -54,7 +61,9 @@ render() {
   };
     return (
       <div style={divStyle}>
+      <br /><br />
         <Card>
+        <br /><br />
           <h2>Login</h2>
           <div>
             <TextField
@@ -76,8 +85,8 @@ render() {
             </div>
             </Card>
             <Snackbar
-              open={this.state.error ? true : false}
-              message={`Login Error: ${this.state.error}`}
+              open={this.state.error || this.state.hasLoggedOut ? true : false}
+              message={this.state.error ? `Login Error: ${this.state.error}` : 'Successfully Logged Out!'}
               autoHideDuration={4000}
               onRequestClose={this.handleRequestClose}
             />

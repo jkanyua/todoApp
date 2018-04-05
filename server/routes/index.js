@@ -14,11 +14,10 @@ module.exports = [
       validate: {
         payload: {
           password: Joi.string().required(),
-          email: Joi.string().required()
+          email: Joi.string().email().required().error(new Error('Invalid Email Address'))
         }
       },
       auth: false
-
     }
   },
   {
@@ -32,7 +31,7 @@ module.exports = [
       validate: {
         payload: {
           password: Joi.string().required(),
-          email: Joi.string().required()
+          email: Joi.string().email().required().error(new Error('Invalid Email Address'))
         }
       },
       auth: false
