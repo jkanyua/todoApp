@@ -9,7 +9,7 @@
 
 # How to run ToDo App
 1. Clone the project - `git clone https://github.com/andela-jkanyua/todoApp.git`
-2. Run `yarn install` on both client and server
+2. Run `yarn` on both client and server
 3. Run `yarn sequelize db:migrate`
 4. Start server `yarn start:server` on server directory
 5. Start client `yarn start` on client directory

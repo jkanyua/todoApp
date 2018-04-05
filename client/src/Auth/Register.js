@@ -29,7 +29,9 @@ class Register extends Component {
  }
 
 handleClick(event){
-  if(this.state.password === this.state.confirmPassword) {
+  if(!this.state.password || !this.state.confirmPassword || !this.state.email){
+    this.setState({error: 'Password, Confirm Password & Email fields cannot be empty.'})
+  } else if(this.state.password === this.state.confirmPassword) {
     this.props.register(
       {
         email: this.state.email,
@@ -59,9 +61,11 @@ render() {
   };
     return (
       <div style={divStyle}>
+      <br /><br />
         <Card>
           <br />
           <h2>Register</h2>
+            <br />
             <div>
               <TextField
                 hintText="Enter your Email"
