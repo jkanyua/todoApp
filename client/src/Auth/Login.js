@@ -1,21 +1,50 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router-dom';
 import { Card } from 'material-ui/Card';
+import Snackbar from 'material-ui/Snackbar';
+
+import { login } from './AuthRedux'
 
 class Login extends Component {
 constructor(props){
   super(props);
   this.state = {
-  username:'',
-  password:''
+  email:'',
+  password:'',
   }
   this.handleClick = this.handleClick.bind(this)
+  this.handleRequestClose = this.handleRequestClose.bind(this)
  }
+ static getDerivedStateFromProps(nextProps, prevState){
+   if(nextProps.error){
+     return Object.assign({}, prevState, {error: nextProps.error })
+   }
+   return prevState
+ }
+
 handleClick(event){
-  console.log(event)
+  this.props.login(
+    {
+      email: this.state.email,
+      password: this.state.password
+    }
+  ).then(() =>{
+    if(this.props.isLoggedIn) {
+      this.props.history.push('/')
+    }
+  })
 }
+
+handleRequestClose() {
+  this.setState({
+    error: false,
+  }, () => console.log(this.state));
+};
+
 render() {
   const divStyle = {
     margin: '0 auto',
@@ -30,7 +59,7 @@ render() {
             <TextField
               hintText="Enter your Email"
               floatingLabelText="Email"
-              onChange = {(event,newValue) => this.setState({username:newValue})}
+              onChange = {(event,newValue) => this.setState({email:newValue})}
             />
             <br/>
             <TextField
@@ -40,16 +69,34 @@ render() {
               onChange = {(event,newValue) => this.setState({password:newValue})}
             />
             <br/><br />
-            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+            <RaisedButton label="Submit" primary={true} style={{margin: 15}} onClick={(event) => this.handleClick(event)}/>
             <br/><br />
             Don't have an account? <Link to="/register" >Sign Up</Link> here!<br /><br />
           </div>
           </Card>
+          <Snackbar
+          open={this.state.error ? true : false}
+          message={`Login Error: ${this.state.error}`}
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
       </div>
     );
   }
 }
-const style = {
- margin: 15,
-};
-export default Login;
+
+function mapStateToProps(state) {
+  return {
+    requestedAt: state.auth.requestedAt,
+    error: state.auth.error,
+    isLoggedIn: state.auth.isLoggedIn
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    login,
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

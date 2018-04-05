@@ -24,9 +24,7 @@ class App extends Component {
               }
             </h2>
             <hr/>
-            <Route exact path="/" component={<div />}/>
             <Route path="/login" component={Login}/>
-            <Route exact path="/register" component={<div />}/>
           </div>
         </Router>
       </div>
