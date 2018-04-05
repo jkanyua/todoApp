@@ -9,7 +9,8 @@
   "private": false,
   "scripts": {
     "precommit": "lint-staged",
-    "sequelize": "./node_modules/.bin/sequelize"
+    "sequelize": "./node_modules/.bin/sequelize",
+    "start:server": "node server.js"
   },
   "lint-staged": {
     "*.js": [
