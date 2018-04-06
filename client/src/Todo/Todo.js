@@ -41,7 +41,7 @@ class Todo extends Component {
        textDecoration: complete ? 'line-through' : 'none',
        color: complete ? 'red' : 'blue',
      }}>
-       <i>Title:</i> {title} <br />
+       <i><b>Title:</b></i> {title} <br />
        <i>Created On: </i>{createdOn} <br />
        <i>{complete}</i>
        <i>{durationToComplete}</i>
