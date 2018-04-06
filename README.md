@@ -8,6 +8,7 @@
 - Create-React-App
 
 # How to run ToDo App
+
 1. Clone the project - `git clone https://github.com/andela-jkanyua/todoApp.git` and `cd todoApp`
 2. Update db `username` and `password` at `/server/config.json`
 3. Run `mysql -u {your mysql user}` and create `todo_db_dev`, `todo_db_test`, `todo_db_prod`
