@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const UserModel = require('../models').User
 const Boom = require('boom')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 const saltRounds = 10
 
